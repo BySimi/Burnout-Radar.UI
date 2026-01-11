@@ -1,71 +1,23 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import openai
-import datetime
+from styles import load_css
 
-# -------- CONFIG --------
-st.set_page_config(page_title="Burnout Radar", layout="centered")
+st.set_page_config(
+    page_title="Burnout Radar",
+    page_icon="🧠",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+
+load_css()
 
 st.title("🧠 Burnout Radar")
-st.subheader("Predict burnout before it hits")
+st.markdown("### Predict burnout before it hits you")
+st.markdown("<p class='muted'>Built for college students under academic pressure</p>", unsafe_allow_html=True)
 
-# -------- SIDEBAR INPUTS --------
-st.sidebar.header("Daily Inputs")
+user = st.text_input("College Email / Username")
+anon = st.checkbox("Continue anonymously")
 
-sleep = st.sidebar.slider("Sleep (hours)", 0.0, 12.0, 7.0)
-screen = st.sidebar.slider("Screen Time (hours)", 0.0, 16.0, 6.0)
-tasks = st.sidebar.slider("Number of tasks today", 0, 10, 3)
-mood = st.sidebar.slider("Mood (1 = terrible, 5 = great)", 1, 5, 3)
-
-# Demo chaos button
-if st.sidebar.button("😈 Simulate Bad Day"):
-    sleep = 4.0
-    screen = 10.0
-    tasks = 7
-    mood = 2
-
-# -------- BURNOUT LOGIC --------
-
-
-
-
-
-
-# -------- STATUS --------
-
-
-
-
-
-
-# -------- SAVE HISTORY --------
-
-
-
-
-
-
-# -------- GRAPH --------
-
-
-
-
-# -------- AI EXPLANATION --------
-st.subheader("Why is your burnout like this?")
-
-if st.button("Get AI Explanation"):
-    prompt = f"""
-    A student has:
-    Sleep: {sleep} hours
-    Screen time: {screen} hours
-    Tasks: {tasks}
-    Mood: {mood}/5
-    Burnout score: {burnout_score}/100
-
-    Explain why burnout is high or low and give 3 actionable tips.
-    """
-
-    # --- OPENAI INTEGRATION ----
-
-    
+if st.button("Continue"):
+    st.session_state.logged_in = True
+if "logged_in" not in st.session_state:
+    st.stop()
