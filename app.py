@@ -27,9 +27,22 @@ if st.sidebar.button("😈 Simulate Bad Day"):
 
 # -------- BURNOUT LOGIC --------
 
+# Normalize inputs to 0–1 scale
+sleep_score = max(0, (8 - sleep) / 8)        # less sleep → higher burnout
+screen_score = min(screen / 10, 1)           # more screen → higher burnout
+task_score = min(tasks / 8, 1)               # more tasks → higher burnout
+mood_score = (5 - mood) / 4                  # worse mood → higher burnout
 
+# Weighted sum (tune weights if you want)
+burnout_raw = (
+    0.35 * sleep_score +
+    0.25 * screen_score +
+    0.25 * task_score +
+    0.15 * mood_score
+)
 
-
+# Convert to 0–100 scale
+burnout_score = int(burnout_raw * 100)
 
 
 # -------- STATUS --------
